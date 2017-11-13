@@ -138,6 +138,16 @@ public class JdbcTemplateProxy {
 		
 		return keyHolder.getKey().intValue();
 	}
+	
+	//------------ excute sql ------------------//
+	public void execute(String sql) throws DataAccessException {
+		try {
+			jdbcTemplate.execute(sql);
+		} catch (DataAccessException e) {
+			logger.error("Error SQL: " + sql);
+			throw e;
+		}
+	}
 
 	
 	public JdbcTemplate getJdbcTemplate() {
