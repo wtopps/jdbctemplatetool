@@ -201,6 +201,17 @@ public class JdbcTemplateTool {
 		
 		getProxy().update(sql, sqlAndParams.getParams());	
 	}
+	
+	//-------------------execute-----------------//
+
+	/**
+	 * 执行一个SQL，用于修改表结构等操作
+	 * @param sql
+	 * @throws Exception
+     	*/
+	public void execute(String sql) throws Exception{
+		getProxy().execute(sql);
+	}
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
