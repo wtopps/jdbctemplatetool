@@ -212,6 +212,16 @@ public class JdbcTemplateTool {
 	public void execute(String sql) throws Exception{
 		getProxy().execute(sql);
 	}
+	
+	/**
+ 	 * 执行SQL，返回Map的映射关系
+ 	 * @param sql
+ 	 * @return
+ 	 * @throws Exception
+        */
+ 	public Map<String, Object> query(String sql) throws Exception{
+ 		return getProxy().queryForMap(sql);
+ 	}
 
 	public JdbcTemplate getJdbcTemplate() {
 		return jdbcTemplate;
