@@ -29,10 +29,10 @@ Maven dependency
 </dependency>
 ```
 
-#Quick start
+# Quick start
 
  
-####STEP 1. create a maven project
+#### STEP 1. create a maven project
 Create a maven project called `testjtt`. And add **jdbctemplatetool** dependency to pom.xml. Also add these dependencies to your pom.xml.
 
 ```xml
@@ -70,7 +70,7 @@ Create a maven project called `testjtt`. And add **jdbctemplatetool** dependency
 
 > You'd better use 1.6+ jdk. Cause I didn't test it on 1.5
 
-####STEP 2. Create test database
+#### STEP 2. Create test database
 Create a database named `jtt_test` and create an user named `travis` and don't assign password. Assign all privileges to `travis` .
 
 ```sql
@@ -97,7 +97,7 @@ CREATE TABLE `employee` (
 insert  into `employee`(`id`,`name`,`join_date`,`age`) values (1,'jack','2014-09-22 00:00:00',23),(2,'ted','2014-08-30 00:00:00',25),(3,'jim','2014-06-22 00:00:00',33);
 ```
 
-####STEP 3. Prepare for Spring
+#### STEP 3. Prepare for Spring
 Create `resources` folder under test folder. Make `resources` as a source folder and change the Output folder into `target/test-classes`
 Create `spring.xml` under test/resources 
 ```xml
@@ -124,7 +124,7 @@ Create `spring.xml` under test/resources
 </beans>
 ```
 
-####STEP 4. create PO
+#### STEP 4. create PO
 Create `Employee.java`
 ```java
 import java.sql.Timestamp;
@@ -166,7 +166,7 @@ public class Employee {
 ```
 
 
-####STEP 5. create test case
+#### STEP 5. create test case
 Create `HelloJTTTest.java` 
 ```java
 import static org.hamcrest.CoreMatchers.is;
@@ -202,7 +202,7 @@ public class HelloJTTTest extends AbstractJUnit4SpringContextTests{
 }
 ```
 
-####STEP 6. launch!
+#### STEP 6. launch!
 Run this test! After you see the green bar check the database. There is a new record : 
 
 id	| name	| join_date	| age		
@@ -210,11 +210,11 @@ id	| name	| join_date	| age
 |4	|billy	|2014-09-24 22:51:20	|33
 
 
-#Further more
+# Further more
 I will introduce more features I mentioned in introduction. 
 > all test case are based on the test data we created in **Quick Start**
 
-##list
+## list
 It can turn the result of query into a list of PO without knowing `BeanPropertyRowMapper`. It will use the underscore style column name to guess the camel style field name and call the setter function.
 ```java
 @Test
@@ -227,7 +227,7 @@ public void testList(){
 }
 ```
 
-##count
+## count
 Pass a `select count(1) from table` sql to it, it will return the count result to you, and you don't have to consider the complex implement of this thing.
 
 ```java
@@ -240,7 +240,7 @@ public void testCount() throws IOException, SQLException {
 	}
 ```
 
-##save
+## save
 Save an object into database.
 If you have some fields you don't want to save to database. You can add `@Transient` to the getter. Like this
 ```java
@@ -286,7 +286,7 @@ public void testSave() throws Exception {
 }
 ```
 
-##get
+## get
 Pass a PO class and the id , it will give you the PO with the id you assigned.
 First all, You need to add `@Id` to the getter of the field which match with the primary key of this table.So that **JdbcTemplateTool** can know what's the primary key. Like this:
 ```java
@@ -306,7 +306,7 @@ public void testGet() throws NoIdAnnotationFoundException, NoColumnAnnotationFou
 	assertThat(e.getName(),is("jim"));
 }
 ```
-##update
+## update
 Auto generate the update sql and execute it with the PO you pass. Also remember to add `@Id` to the primary key field.
 ```java
 @Test
@@ -320,7 +320,7 @@ public void testUpdate() throws Exception {
 }
 ```
 
-##batchUpdate
+## batchUpdate
 Batch update without care about implement BatchPreparedStatementSetter
 ```java
 @Test
@@ -340,7 +340,7 @@ public void testBatchUpdate() throws SQLException, IOException {
 }
 ```
 
-##delete
+## delete
 Delete an object from database 
 ```java
 @Test
@@ -352,8 +352,8 @@ public void testDelete() throws Exception {
 }
 ```
 
-##getJdbcTemplate
+## getJdbcTemplate
 You can also use the original `JdbcTemplate`. And there are many situation which **JdbcTemplateTool** can't handle with. In those situations  just call `JdbcTemplateTool.getJdbcTemplate()` to get `JdbcTemplate` and use the original methods of it.
 
-##If you found any bugs
+## If you found any bugs
 Please send email to idante@qq.com
